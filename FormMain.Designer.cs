@@ -40,6 +40,7 @@ namespace PicEnc
             this.buttonLoadText = new System.Windows.Forms.Button();
             this.checkBoxSave = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelLink = new System.Windows.Forms.Label();
             this.buttonClrImage = new System.Windows.Forms.Button();
             this.buttonClrText = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -113,7 +114,7 @@ namespace PicEnc
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(568, 246);
+            this.panel1.Size = new System.Drawing.Size(568, 211);
             this.panel1.TabIndex = 4;
             // 
             // pictureBox1
@@ -121,7 +122,7 @@ namespace PicEnc
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(568, 246);
+            this.pictureBox1.Size = new System.Drawing.Size(568, 211);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -132,11 +133,11 @@ namespace PicEnc
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(3, 255);
+            this.textBox1.Location = new System.Drawing.Point(3, 245);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(568, 113);
+            this.textBox1.Size = new System.Drawing.Size(568, 123);
             this.textBox1.TabIndex = 1;
             // 
             // buttonLoadText
@@ -172,15 +173,26 @@ namespace PicEnc
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelLink, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(216, 29);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.19407F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.80593F));
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 89.66942F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.33058F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 128F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(574, 371);
             this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // labelLink
+            // 
+            this.labelLink.AutoSize = true;
+            this.labelLink.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelLink.Location = new System.Drawing.Point(3, 217);
+            this.labelLink.Name = "labelLink";
+            this.labelLink.Size = new System.Drawing.Size(568, 25);
+            this.labelLink.TabIndex = 1;
             // 
             // buttonClrImage
             // 
@@ -255,6 +267,7 @@ namespace PicEnc
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button buttonClrImage;
         private System.Windows.Forms.Button buttonClrText;
+        private System.Windows.Forms.Label labelLink;
     }
 }
 

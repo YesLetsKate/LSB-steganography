@@ -14,6 +14,10 @@ namespace PicEnc
     public partial class FormMain : Form
     {
         string FileName;
+        string textFilePath;
+        string text;
+        string V;
+       // Stream fileStream;
         public FormMain()
         {
             InitializeComponent();
@@ -49,9 +53,9 @@ namespace PicEnc
                         MessageBoxButtons.OK);
                 return;
             }
-            if (textBox1.Text == "")
+            if (textBox1.Text == "" & textFilePath ==" ")
             {
-                MessageBox.Show("Загрузите текст", "Уведомление",
+                MessageBox.Show("Загрузите текст или введите его в поле", "Уведомление",
                         MessageBoxButtons.OK);
                 return;
             }
@@ -61,12 +65,44 @@ namespace PicEnc
                         MessageBoxButtons.OK);
                 return;
             }
-            if(textBox1.Text.Length > pictureBox1.Image.Width * pictureBox1.Image.Height)
+            if((textBox1.Text !="") & (textFilePath != null))
+            {
+                MessageBox.Show("Оставте либо текстовый файл, либо текст в поле", "Уведомление",
+                        MessageBoxButtons.OK);
+                return;
+            }
+            int lenght = 0;
+            try
+            {
+                if (textFilePath != "")
+                {
+                    var lines = File.ReadAllLines(textFilePath);
+                    lenght = 0;
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        lenght += lines[i].Length;
+                    }
+                }
+            }
+            catch { }
+            
+            if (textBox1.Text.Length > pictureBox1.Image.Width * pictureBox1.Image.Height
+                |lenght > pictureBox1.Image.Width * pictureBox1.Image.Height)
             {
                 MessageBox.Show("Количество букв превышает количество пикселей", "Уведомление",
                         MessageBoxButtons.OK);
                 return;
             }
+            if (textBox1.Text != "")
+            {
+                text = textBox1.Text;
+                V = "textBox";
+            }
+            else 
+            {
+                text = textFilePath;
+                V = "File";
+            } 
 
             Encrypter Enc = new Encrypter(pictureBox1.Image);
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -78,7 +114,7 @@ namespace PicEnc
             {
                 try
                 {
-                    Enc.Encrypt(textBox1.Text, textBoxKey.Text).
+                    Enc.Encrypt(text, textBoxKey.Text, V, lenght).
                         Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
 
                     MessageBox.Show("Преобразование прошло успешно.", "Уведомление",
@@ -102,12 +138,13 @@ namespace PicEnc
                 return;
             try
             {
-                var filePath = openDialog.FileName;
-                var fileStream = openDialog.OpenFile();
-                using(StreamReader reader = new StreamReader(fileStream))
-                {
-                    textBox1.Text = reader.ReadToEnd();
-                }
+                textFilePath = openDialog.FileName;
+                labelLink.Text = "Выбран файл: " + textFilePath;
+                //fileStream = openDialog.OpenFile();
+                //using(StreamReader reader = new StreamReader(fileStream))
+                //{
+                //    textBox1.Text = reader.ReadToEnd();
+                //}
             }
             catch (OutOfMemoryException)
             {
@@ -135,20 +172,20 @@ namespace PicEnc
 
             if (checkBoxSave.Checked)
             {
+                bool check = true;
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Файлы текста(*.txt)|*.txt|Все файлы (*.*)|*.*";
                 saveFileDialog.DefaultExt = "txt";
                 saveFileDialog.FileName = FileName + "NEW";
-                string txt;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        txt = Enc.Decrypt(textBoxKey.Text);
-                        File.WriteAllText(saveFileDialog.FileName, txt);
-                        Enc.Decrypt(textBoxKey.Text);
-                        textBox1.Text = txt;
+                        Enc.Decrypt(textBoxKey.Text, check, saveFileDialog.FileName);
+
+                        //Enc.Decrypt(textBoxKey.Text);
+                        //textBox1.Text = txt;
                         MessageBox.Show("Преобразование прошло успешно", "Уведомление",
                             MessageBoxButtons.OK);
                     }
@@ -163,7 +200,7 @@ namespace PicEnc
             {
                 try
                 {
-                    textBox1.Text = Enc.Decrypt(textBoxKey.Text);
+                    textBox1.Text = Enc.Decrypt(textBoxKey.Text, checkBoxSave.Checked);
                     MessageBox.Show("Преобразование прошло успешно", "Уведомление",
                         MessageBoxButtons.OK);
                 }
@@ -175,14 +212,13 @@ namespace PicEnc
             }
         }
 
-        private void buttonClrImage_Click_1(object sender, EventArgs e)
-        {
-            pictureBox1.Image = null;
-        }
+        private void buttonClrImage_Click_1(object sender, EventArgs e) => pictureBox1.Image = null;
 
-        private void buttonClrText_Click(object sender, EventArgs e)
+        private void buttonClrText_Click(object sender, EventArgs e) 
         {
             textBox1.Text = null;
+            labelLink.Text = null;
+            textFilePath = null;
         }
     }
 }
