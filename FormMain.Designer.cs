@@ -204,7 +204,7 @@ namespace PicEnc
             this.buttonClrImage.Name = "buttonClrImage";
             this.buttonClrImage.Size = new System.Drawing.Size(80, 45);
             this.buttonClrImage.TabIndex = 8;
-            this.buttonClrImage.Text = "Clear Iamge";
+            this.buttonClrImage.Text = "Clear Image";
             this.buttonClrImage.UseVisualStyleBackColor = false;
             this.buttonClrImage.Click += new System.EventHandler(this.buttonClrImage_Click_1);
             // 
